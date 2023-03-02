@@ -1,0 +1,19 @@
+{
+    "code": "corals-etsy",
+    "name": "Etsy Module",
+    "author": "Corals",
+    "type": "module",
+    "description": "Etsy Starter Package",
+    "namespace": "Corals\\Modules\\Etsy\\",
+    "provider": "EtsyServiceProvider",
+    "version": "1.0",
+    "load_order": "0",
+    "folder": "Etsy",
+    "autoload": "psr-4",
+    "icon": "fa fa-clone",
+    "require": {
+    },
+    "supported_platforms": [
+        "Marketplace"
+    ]
+}
