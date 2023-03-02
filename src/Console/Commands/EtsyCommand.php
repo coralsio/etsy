@@ -11,7 +11,6 @@ class EtsyCommand extends Command
     protected $signature = 'etsy:import {file} {store_id}';
     protected $description = 'Etsy importer';
 
-
     /**
      * etsy command handler
      */
@@ -19,8 +18,9 @@ class EtsyCommand extends Command
     {
         $path = $this->argument('file');
 
-        if (!file_exists($path)) {
+        if (! file_exists($path)) {
             $this->error('File not found exception.');
+
             return;
         }
 

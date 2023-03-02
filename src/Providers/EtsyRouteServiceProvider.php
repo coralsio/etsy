@@ -56,5 +56,4 @@ class EtsyRouteServiceProvider extends ServiceProvider
             ->namespace($this->namespace)
             ->group(__DIR__ . '/../routes/web.php');
     }
-
 }

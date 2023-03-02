@@ -23,7 +23,6 @@ class EtsyServiceProvider extends BasePackageServiceProvider
      *
      * @return void
      */
-
     public function bootPackage()
     {
         $this->commands(EtsyCommand::class);
@@ -31,7 +30,6 @@ class EtsyServiceProvider extends BasePackageServiceProvider
         $this->loadViewsFrom(__DIR__ . '/resources/views', 'Etsy');
 
         $this->loadTranslationsFrom(__DIR__ . '/resources/lang', 'Etsy');
-
     }
 
     /**

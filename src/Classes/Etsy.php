@@ -7,7 +7,7 @@ class Etsy
     /**
      * Etsy constructor.
      */
-    function __construct()
+    public function __construct()
     {
     }
 }

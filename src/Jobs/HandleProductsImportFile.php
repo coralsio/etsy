@@ -1,8 +1,6 @@
 <?php
 
-
 namespace Corals\Modules\Etsy\Jobs;
-
 
 use Corals\Modules\Marketplace\Http\Requests\{ProductRequest};
 use Corals\Modules\Marketplace\Models\{Attribute, AttributeOption, AttributeSet, Category, Product};
@@ -18,7 +16,11 @@ use League\Csv\{Exception as CSVException};
 
 class HandleProductsImportFile implements ShouldQueue
 {
-    use Dispatchable, InteractsWithQueue, Queueable, SerializesModels, ImportTrait;
+    use Dispatchable;
+    use InteractsWithQueue;
+    use Queueable;
+    use SerializesModels;
+    use ImportTrait;
 
     protected $importFilePath;
     protected $storeId;
@@ -63,7 +65,7 @@ class HandleProductsImportFile implements ShouldQueue
         $this->user = $user;
         $this->importFilePath = $importFilePath;
         $this->clearExistingImages = $clearExistingImages;
-        $this->skuService = new SKUService;
+        $this->skuService = new SKUService();
         $this->importHeaders = [
             'TITLE',
             'DESCRIPTION',
@@ -88,12 +90,11 @@ class HandleProductsImportFile implements ShouldQueue
             'VARIATION 2 TYPE',
             'VARIATION 2 NAME',
             'VARIATION 2 VALUES',
-            'SKU'
+            'SKU',
         ];
 
         $this->storeId = $storeId;
     }
-
 
     /**
      * @throws CSVException
@@ -165,19 +166,19 @@ class HandleProductsImportFile implements ShouldQueue
             }
         });
 
-        if (!$optionValues) {
+        if (! $optionValues) {
             return;
         }
 
         $data = [
             'options' => $optionValues,
-            'generate_option' => 'apply_single'
+            'generate_option' => 'apply_single',
         ];
 
 
         $this->skuService->generateSKUs($data, $productModel, [
             'status' => 'active',
-            'regular_price' => data_get($record, 'PRICE')
+            'regular_price' => data_get($record, 'PRICE'),
         ], true);
     }
 
@@ -205,8 +206,9 @@ class HandleProductsImportFile implements ShouldQueue
         while (key_exists("IMAGE$index", $record)) {
             $imageURL = trim(data_get($record, "IMAGE$index"));
 
-            if (!$imageURL) {
+            if (! $imageURL) {
                 $index++;
+
                 continue;
             }
 
@@ -261,11 +263,11 @@ class HandleProductsImportFile implements ShouldQueue
     {
         $code = $this->attributeCodeCleanUp($code);
 
-        if (!$code) {
+        if (! $code) {
             return false;
         }
 
-        if (!is_array($values)) {
+        if (! is_array($values)) {
             $values = explode(',', $values);
         }
 
@@ -275,7 +277,7 @@ class HandleProductsImportFile implements ShouldQueue
         $attribute = $this->attributes->where('code', $code)->first();
 
 
-        if (!$attribute) {
+        if (! $attribute) {
             $attribute = Attribute::query()->create([
                 'code' => $code,
                 'label' => Str::title($code),
@@ -295,7 +297,7 @@ class HandleProductsImportFile implements ShouldQueue
             $isValueAlreadyExists = AttributeOption::query()
                 ->where([
                     ['attribute_id', '=', $attribute->id],
-                    ['option_value', '=', $value]
+                    ['option_value', '=', $value],
                 ])->exists();
 
             $this->recordAttributeValues[] = $value;
@@ -340,7 +342,7 @@ class HandleProductsImportFile implements ShouldQueue
     {
         $option = $attributeModel->options->where('option_value', $value)->first();
 
-        if (!$option) {
+        if (! $option) {
             throw new \Exception("Attribute {$attributeModel->code} $value option not found");
         }
 
@@ -484,7 +486,7 @@ class HandleProductsImportFile implements ShouldQueue
                     if (array_intersect($value, array_keys($set_attribute_options))) {
                         $fail($attribute . ' should be unique with product attributes');
                     }
-                }
+                },
             ],
             'categories' => 'required',
         ];

@@ -7,7 +7,6 @@ use Corals\Modules\Etsy\Jobs\HandleProductsImportFile;
 use Illuminate\Http\Request;
 use Illuminate\Support\Str;
 
-
 class EtsyImportProductsController extends BaseController
 {
     /**
@@ -46,12 +45,12 @@ class EtsyImportProductsController extends BaseController
 
             $message = [
                 'message' => trans('Etsy::messages.successfully_uploaded'),
-                'level' => 'success'
+                'level' => 'success',
             ];
         } catch (\Exception $exception) {
             $message = [
                 'message' => $exception->getMessage(),
-                'level' => 'error'
+                'level' => 'error',
             ];
 
             report($exception);

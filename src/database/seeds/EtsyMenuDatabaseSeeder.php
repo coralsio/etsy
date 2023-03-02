@@ -25,8 +25,8 @@ class EtsyMenuDatabaseSeeder extends Seeder
                 'icon' => 'fa fa-upload',
                 'target' => null,
                 'roles' => '["1"]',
-                'order' => 0
-            ]
+                'order' => 0,
+            ],
         ]);
     }
 }

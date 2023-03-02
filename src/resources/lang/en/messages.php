@@ -2,5 +2,5 @@
 
 
 return [
-    'successfully_uploaded' => 'File Successfully uploaded'
+    'successfully_uploaded' => 'File Successfully uploaded',
 ];
