@@ -144,8 +144,8 @@ class HandleProductsImportFile implements ShouldQueue
 
         $this->handleProductImages($record, $productModel);
 
-//        if ($productData['type'] === 'variable') {
-//        }
+        //        if ($productData['type'] === 'variable') {
+        //        }
     }
 
     /**
